@@ -1,4 +1,4 @@
-import mongoose,{Model, Schema} from "mongoose";
+import mongoose,{model, Schema} from "mongoose";
 import { ref } from "node:process";
 
 const UserSchema=new Schema({
@@ -6,7 +6,7 @@ const UserSchema=new Schema({
      password: String
 })
 
-export const UserModel=new Model("user",UserSchema);
+export const UserModel= model("user",UserSchema);
 
 const ContentSchema = new Schema({
      title: String,
@@ -16,4 +16,4 @@ const ContentSchema = new Schema({
      
 })
 
-export const ContentModel= new Model()
+export const ContentModel=  model("content",ContentSchema);

@@ -7,6 +7,8 @@ import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import zod from "zod";
+import jwt from "jsonwebtoken";
+const SECRET =process.env.SECRET;
 
 const app=express();
 
@@ -44,9 +46,25 @@ app.post("/user/login",async function(req,res){
     }
 })
 
-app.post("/signin",function(req,res){
-    
+app.post("/signin",async function(req,res){
+    const username=req.body.username;
+    const password=req.body.password;
 
+    const user=await UserModel.findOne({
+        username:username  
+    })
+    if(!user?.password){
+        return res.status(404).json({
+            msg:"incorrect password"
+        })
+    }
+    const check=await bcrypt.compare(password,user.password);
+
+    if(!check){
+        return res.status(404).json({
+            msg:"incorrect password"
+        })
+    }
 })
 async function main() {
     await mongoose.connect(process.env.MONGO_URL!)
