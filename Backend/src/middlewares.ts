@@ -11,7 +11,6 @@ export const authorization = (req: Request, res: Response, next: NextFunction) =
             msg: "invalid user1"
         })
     }
-    const a=4;
     try{
         const valid = jwt.verify(token, SECRET) as JwtPayload;
         if(valid){
