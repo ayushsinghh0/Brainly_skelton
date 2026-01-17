@@ -1,26 +1,28 @@
 import dotenv from "dotenv" 
 dotenv.config();
 console.log(process.env.MONGODB_URL);
-import { UserModel } from "./routes/db.js";
-//ayush raj your heroo...
+const MONGODB_URL=process.env.MONGODB_URL
+
+import { ContentModel, UserModel } from "./routes/db.js";
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import zod from "zod";
-import jwt from "jsonwebtoken";
-const SECRET =process.env.SECRET;
+import jwt from "jsonwebtoken"
+import { authorization } from "./middlewares.js";
+const SECRET =process.env.SECRET as string;
 
 const app=express();
 
 app.use(express.json());
 
-app.post("/user/login",async function(req,res){
+app.post("/user/signUp",async function(req,res){
     const neededBody=zod.object({
         username:zod.string(),
-        password:zod.string
+        password:zod.string()
     })
     const valid=neededBody.safeParse(req.body);
-    if(!valid){
+    if(!valid.success){
         return res.status(404).json({
             msg:"invalid context"
         })
@@ -46,7 +48,7 @@ app.post("/user/login",async function(req,res){
     }
 })
 
-app.post("/signin",async function(req,res){
+app.post("/user/signin",async function(req,res){
     const username=req.body.username;
     const password=req.body.password;
 
@@ -65,9 +67,51 @@ app.post("/signin",async function(req,res){
             msg:"incorrect password"
         })
     }
+     const token=jwt.sign({
+                id:user._id
+            },SECRET);
+    
+            res.json({
+                 msg: "Signin successful",
+                token
+            })
+    
+    
 })
+
+
+
+app.post("/content",authorization,async function (req,res) {
+    const title=req.body.title;
+    const link=req.body.link;
+    const tags=req.body.tags;
+    
+    try {await ContentModel.create({
+        title,
+        link,
+        tags,
+        userId:(req as any).userId
+    })
+    res.json({
+        msg : "content Created"
+    })
+
+}
+    catch(e){
+        return res.json({
+            msg:"something happens"
+        })
+    }
+    
+})
+
+app.get("/content",authorization,function(req,res){
+
+})
+
+
 async function main() {
-    await mongoose.connect(process.env.MONGO_URL!)
+    await mongoose.connect(MONGODB_URL!)
     app.listen(3000);
 }
 

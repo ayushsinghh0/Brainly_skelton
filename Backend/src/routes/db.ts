@@ -1,5 +1,5 @@
 import mongoose,{model, Schema} from "mongoose";
-import { ref } from "node:process";
+import { ref, title } from "node:process";
 
 const UserSchema=new Schema({
      username: {type: String,unique: true},
@@ -12,8 +12,14 @@ const ContentSchema = new Schema({
      title: String,
      link: String,
      tags: [{type:  mongoose.Types.ObjectId, ref: 'Tag'}],
-     userId: {type:mongoose.Types.ObjectId,ref: 'User',required: true}
+     userId: {type:mongoose.Types.ObjectId,ref: 'user',required: true}
      
 })
 
 export const ContentModel=  model("content",ContentSchema);
+
+const tag=new Schema({
+     title:String,
+     
+
+})
