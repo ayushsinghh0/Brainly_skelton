@@ -4,7 +4,7 @@ export interface Buttonprops {
     text: string;
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
-    onClick: () => void;
+   // onClick: () => void;
 }
 
 const variantStyle={
@@ -29,4 +29,3 @@ export const Button=(props: Buttonprops)=>{
      {" "}{props.text}
     </button>
 }
-<Button variant="primary" text='j' size="sm"/>
