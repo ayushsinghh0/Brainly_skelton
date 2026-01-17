@@ -10,6 +10,7 @@ import bcrypt from "bcrypt";
 import zod from "zod";
 import jwt from "jsonwebtoken"
 import { authorization } from "./middlewares.js";
+import { userInfo } from "node:os";
 const SECRET =process.env.SECRET as string;
 
 const app=express();
@@ -105,8 +106,22 @@ app.post("/content",authorization,async function (req,res) {
     
 })
 
-app.get("/content",authorization,function(req,res){
+app.get("/content",authorization,async function(req,res){
+    const userId =(req as any).userId;
+    const content = await ContentModel.find({
+        userId: userId
+    }).populate("userId","username")
+    res.json({
+        content
+    })
+})
 
+app.delete("/content/delte",authorization,async (req,res)=>{
+    const contentId=req.body.contentId;
+    await ContentModel.deleteMany({
+        contentId,
+        userId:(req as any).userId
+    })
 })
 
 
