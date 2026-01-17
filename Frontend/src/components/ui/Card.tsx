@@ -17,6 +17,7 @@ export function Card({ title, link, type }: CardProps) {
     border-gray-200
     max-w-72
     text-md
+    min-h-48 min-w-72
     border
     "
       >
@@ -37,8 +38,7 @@ export function Card({ title, link, type }: CardProps) {
             </div>
           </div>
         </div>
-        {/* https://youtu.be/RvHl3ImORf8?si=xDYj0gzKTYP88lRZ
-            https://www.youtube.com/embed/RvHl3ImORf8?si=xDYj0gzKTYP88lRZ */}
+
         <div className="pt-4">
           {type == "youtube" && 
             <iframe
