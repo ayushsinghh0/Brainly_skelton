@@ -2,11 +2,7 @@ import { Input } from "./inputComponent";
 import { Button } from "./ui/Button";
 import { CrossIcon } from "./ui/CrossIcon";
 
-//control component
-type CreateContentModalProps = {
-  open: boolean;
-  onClose: () => void;
-};
+
 
 
 export function CreateContentModal({open ,onClose} : CreateContentModalProps){
@@ -16,7 +12,10 @@ export function CreateContentModal({open ,onClose} : CreateContentModalProps){
            <div className="flex flex-col justify-center border ">
             <span className="bg-white opacity-100 p-4 rounded border">
               <div className="flex justfy-end">
-                <CrossIcon/>
+                <div onClick={onClose} className="cursor-pointer">
+                  <CrossIcon/>
+
+                </div>
               </div>
               <div >
                 <Input placeholder="Title"></Input>

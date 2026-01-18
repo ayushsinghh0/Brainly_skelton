@@ -39,7 +39,7 @@ export function Card({ title, link, type }: CardProps) {
           </div>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-4 flex justify-center ">
           {type == "youtube" && 
             <iframe
               className="w-full"

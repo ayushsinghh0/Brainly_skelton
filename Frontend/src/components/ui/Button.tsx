@@ -4,7 +4,7 @@ export interface Buttonprops {
     text: string;
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
-   // onClick: () => void;
+    onClick?: () => void;
 }
 
 const variantStyle={
@@ -21,7 +21,7 @@ const sizeStyles = {
 const defaultStyles="rounded-md flex items-center gap-2 justify-center"
 
 export const Button=(props: Buttonprops)=>{
-    return <button 
+    return <button onClick={props.onClick} 
     className={`${variantStyle[props.variant]} ${defaultStyles} ${sizeStyles[props.size]}`
     }>
         {props.startIcon ? <div className="">{props.startIcon}</div> :null}
