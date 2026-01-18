@@ -12,9 +12,12 @@ import jwt from "jsonwebtoken"
 import { authorization } from "./middlewares.js";
 import { userInfo } from "node:os";
 import { Random } from "./utlis.js";
+import cors from "cors"
 const SECRET =process.env.SECRET as string;
 
 const app=express();
+app.use(cors());
+
 
 app.use(express.json());
 

@@ -1,6 +1,12 @@
-export function Input({onChange , placeholder}:{onChange:()=>void}){
+ interface InputProps {
+  placeholder: string;
+  //@tsx-ignore
+   ref : any
+}
+
+export function Input({ placeholder ,ref}:InputProps){
     return <div>
-        <input type={"text"} className="px-4 py-2 border rounded m-2" placeholder={placeholder}></input>
+        <input  ref={ref} type={"text"} className="px-4 py-2 border rounded m-2" placeholder={placeholder}></input>
     </div>
 }
 
